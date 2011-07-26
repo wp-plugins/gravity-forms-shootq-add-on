@@ -28,9 +28,13 @@ Please see here: [Usage & Installation Instructions](http://www.pussycatintimate
 2. Your visitor submits the form and voila! Everything gets sent to ShootQ!
 
 == Changelog ==
+= 1.0.1 =
+* Fixed uninstall error in plugin base path.
 = 1.0 =
 * Initial release!
 
 == Upgrade Notice ==
+= 1.0.1 =
+* Upgrade to allow proper uninstall (not that you'll want to!)
 = 1.0 =
 * Initial release. No upgrade necessary.

@@ -660,21 +660,6 @@ class GFShootQ {
 		//$lead["event"]["wedding"]["bridesmaids_count"] = 5;
 		//$lead["event"]["wedding"]["guests_count"] = 200;
 		$lead["event"]["extra"] = self::get_extras($entry, $map);
-
-		/*
-		echo "<pre style=\"font-size: 13px;\">Field Map:";
-		print_r($map);
-		echo "</pre>";
-
-		echo "<pre style=\"font-size: 13px;\">Form Entry:";
-		print_r($entry);
-		echo "</pre>";
-		
-		echo "<pre style=\"font-size: 13px;\">ShootQ JSON Array:";
-		print_r($lead);
-		echo "</pre>";
-		die;
-		*/
 		
 		/* encode this data structure as JSON */
 		$lead_json = json_encode($lead);
@@ -839,7 +824,7 @@ class GFShootQ {
         delete_option("gf_shootq_version");
 
         //Deactivating plugin
-        $plugin = "gravityforms_shootq/shootq.php";
+        $plugin = "gravity-forms-shootq-add-on/shootq.php";
         deactivate_plugins($plugin);
         update_option('recently_activated', array($plugin => time()) + (array)get_option('recently_activated'));
     }

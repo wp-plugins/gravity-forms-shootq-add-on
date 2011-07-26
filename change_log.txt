@@ -1,7 +1,0 @@
------------------------------------------------------------
-Version 0.2
-    - added indicators for required ShootQ API fields
-    - added function to removed forms from Add New dialog that were already configured
------------------------------------------------------------
-Version 0.1
-    - first workable version (Yay!)
