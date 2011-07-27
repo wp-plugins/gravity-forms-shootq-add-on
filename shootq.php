@@ -30,7 +30,7 @@ register_activation_hook( __FILE__, array("GFShootQ", "add_permissions"));
 
 class GFShootQ {
 
-    private static $version = "1.0";
+    private static $version = "1.0.1";
     private static $min_gravityforms_version = "1.5";
 
     //Plugin starting point. Will load appropriate files
