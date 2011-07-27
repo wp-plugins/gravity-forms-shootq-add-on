@@ -4,7 +4,7 @@ Donate link: http://www.pussycatintimates.com/gravity-forms-shootq-add-on/
 Tags: Gravity Forms, ShootQ, photographers, studio management system, leads, integration
 Requires at least: 3.1
 Tested up to: 3.2
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 
 Connects your Gravity Forms to your ShootQ account for collecting leads.
 
@@ -28,13 +28,13 @@ Please see here: [Usage & Installation Instructions](http://www.pussycatintimate
 2. Your visitor submits the form and voila! Everything gets sent to ShootQ!
 
 == Changelog ==
-= 1.0.1 =
+= 1.0.2 =
 * Fixed uninstall error in plugin base path.
 = 1.0 =
 * Initial release!
 
 == Upgrade Notice ==
-= 1.0.1 =
+= 1.0.2 =
 * Upgrade to allow proper uninstall (not that you'll want to!)
 = 1.0 =
 * Initial release. No upgrade necessary.
