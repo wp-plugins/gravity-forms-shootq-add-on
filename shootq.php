@@ -3,7 +3,7 @@
 Plugin Name: Gravity Forms ShootQ Add-On
 Plugin URI: http://www.pussycatintimates.com/gravity-forms-shootq-add-on/
 Description: Connects your Gravity Forms to your ShootQ account for collecting leads.
-Version: 1.0
+Version: 1.0.1
 Author: pussycatdev
 Author URI: http://www.pussycatintimates.com
 

@@ -4,7 +4,7 @@ Donate link: http://www.pussycatintimates.com/gravity-forms-shootq-add-on/
 Tags: Gravity Forms, ShootQ, photographers, studio management system, leads, integration
 Requires at least: 3.1
 Tested up to: 3.2
-Stable tag: 1.0
+Stable tag: 1.0.1
 
 Connects your Gravity Forms to your ShootQ account for collecting leads.
 
