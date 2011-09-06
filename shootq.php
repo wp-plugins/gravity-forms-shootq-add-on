@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Gravity Forms ShootQ Add-On
-Plugin URI: http://www.pussycatintimates.com/gravity-forms-shootq-add-on/
+Plugin URI: http://www.pussycatintimates.com/gravity-forms-shootq-add-on-wordpress-plugin/
 Description: Connects your Gravity Forms to your ShootQ account for collecting leads.
-Version: 1.0.2
+Version: 1.0.3
 Author: pussycatdev
-Author URI: http://www.pussycatintimates.com
+Author URI: http://www.pussycatintimates.com/
 
 ------------------------------------------------------------------------
 Copyright 2011 Pussycat Intimate Portraiture
@@ -30,7 +30,7 @@ register_activation_hook( __FILE__, array("GFShootQ", "add_permissions"));
 
 class GFShootQ {
 
-    private static $version = "1.0.2";
+    private static $version = "1.0.3";
     private static $min_gravityforms_version = "1.5";
 
     //Plugin starting point. Will load appropriate files
@@ -87,7 +87,8 @@ class GFShootQ {
 
         }
         else{
-             //Handling post submission. This is where the integration will happen (will get fired right after the form gets submitted)
+             //Handling post submission. This is where the integration will happen 
+			 //(will get fired right after the form gets submitted)
             add_action("gform_post_submission", array('GFShootQ', 'export'), 10, 2);
         }
 
@@ -143,7 +144,10 @@ class GFShootQ {
 
     public static function settings_page(){
 
-        if(!rgempty("uninstall")){
+        $is_valid_api = true;
+		$validation_icon = ($is_valid_api) ? "/images/tick.png" : "/images/error.png";
+		
+		if(!rgempty("uninstall")){
             check_admin_referer("uninstall", "gf_shootq_uninstall");
             self::uninstall();
 
@@ -151,27 +155,39 @@ class GFShootQ {
             <div class="updated fade" style="padding:20px;"><?php _e(sprintf("Gravity Forms ShootQ Add-On have been successfully uninstalled. It can be re-activated from the %splugins page%s.", "<a href='plugins.php'>","</a>"), "gravityformsshootq")?></div>
             <?php
             return;
-        }
-        else if(!rgempty("gf_shootq_submit")){
+        } else if(!rgempty("gf_shootq_submit")){
             check_admin_referer("update", "gf_shootq_update");
-            $settings = array("apikey" => rgpost("gf_shootq_apikey"), "brand" => rgpost("gf_shootq_brand"));
+            $settings = array(
+				"apikey" => trim(rgpost("gf_shootq_apikey")), 
+				"brand" => trim(rgpost("gf_shootq_brand"))
+			);
+			
+			//validate the API key to make sure it's the right format
+			$valid_pattern = "/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i";
+			$is_valid_api = (preg_match($valid_pattern,$settings["apikey"]) != 0);
+			
+			if (!$is_valid_api) {
+				$validation_icon = "/images/error.png";
+				?>
+				<div class="delete-alert alert_red" style="padding:6px"><?php _e("The API Key you provided is in the <i>wrong format!</i> You may not have copied the entire string, or have made a typo if manually entering the Key. Please try again.", "gravityformsshootq") ?></div>
+				<?php
+			} else {
+				update_option("gf_shootq_settings", $settings);
+				?>
+				<div class="updated fade" style="padding:6px"><?php echo sprintf(__("Your ShootQ Settings have been saved. Now you can %sconfigure a new feed%s!", "gravityformsshootq"), "<a href='?page=gf_shootq&view=edit&id=0'>", "</a>") ?></div>
+				<?php
+			}
 
-            update_option("gf_shootq_settings", $settings);
-			?>
-			<div class="updated fade" style="padding:6px"><?php echo sprintf(__("Your ShootQ Settings have been saved. Now you can %sconfigure a new feed%s!", "gravityformsshootq"), "<a href='?page=gf_shootq&view=edit&id=0'>", "</a>") ?></div>
-			<?php
-        }
-        else{
+        } else {
             $settings = get_option("gf_shootq_settings");
         }
-
         ?>
 
         <form method="post" action="">
             <?php wp_nonce_field("update", "gf_shootq_update") ?>
             <h3><?php _e("ShootQ Settings", "gravityformsshootq") ?></h3>
 			
-			<p style="text-align: left;"><?php _e("Here is where you will connect your ShootQ account to the plugin. To find your API Key and Brand Abbreviation, visit the Public API page from the bottom of your Settings tab on ShootQ (You can", "gravityformsshootq") ?> <a href="https://app.shootq.com/controlpanels/integrations/api" title="Go to the Public API page on ShootQ" target="_blank"><?php _e("head straight there", "gravityformsshootq") ?></a> <?php _e("if you are already logged in.) Copy the API Key and Brand Abbreviation into their respecive fields below.", "gravityformsshootq") ?></p>
+			<p style="text-align: left;"><?php _e("Here is where you will connect your ShootQ account to the plugin. To find your API Key and Brand Abbreviation, visit the Public API page from the bottom of your Settings tab on ShootQ (You can", "gravityformsshootq") ?> <a href="https://app.shootq.com/controlpanels/integrations/api" title="Go to the Public API page on ShootQ" target="_blank"><?php _e("head straight there", "gravityformsshootq") ?></a> <?php _e("if you are already logged in.) Copy the API Key and Brand Abbreviation into their respective fields below.", "gravityformsshootq") ?></p>
 			
 			<div class="gforms_help_alert alert_yellow"><?php _e("<strong>IMPORTANT:</strong> You <i>must</i> make sure you check the checkbox on the Public API page that says &quot;Enable Public API Access&quot; so the plugin can talk to ShootQ!", "gravityformsshootq") ?></div>
 
@@ -180,14 +196,14 @@ class GFShootQ {
                     <th scope="row"><label for="gf_shootq_apikey"><?php _e("ShootQ API Access Key", "gravityformsshootq"); ?>  <?php gform_tooltip("shootq_api") ?></label></th>
                     <td>
                         <input type="text" id="gf_shootq_apikey" name="gf_shootq_apikey" value="<?php echo esc_attr($settings["apikey"]) ?>" size="50"/>
-						<?php if (strlen($settings["apikey"]) != 0) echo "<img src=\"" . self::get_base_url() . "/images/tick.png\" />";; ?>
+						<?php if (strlen($settings["apikey"]) != 0) echo "<img src=\"" . self::get_base_url() . "/" . $validation_icon . "\" />"; ?>
                     </td>
                 </tr>
                 <tr>
                     <th scope="row"><label for="gf_shootq_brand"><?php _e("ShootQ Brand Abbreviation", "gravityformsshootq"); ?>  <?php gform_tooltip("shootq_brand") ?></label></th>
                     <td>
                         <input type="text" id="gf_shootq_brand" name="gf_shootq_brand" value="<?php echo esc_attr($settings["brand"]) ?>" size="50"/>
-						<?php if (strlen($settings["brand"]) != 0) echo "<img src=\"" . self::get_base_url() . "/images/tick.png\" />";; ?>
+						<?php if (strlen($settings["brand"]) != 0) echo "<img src=\"" . self::get_base_url() . "/images/tick.png\" />"; ?>
                     </td>
                 </tr>
                 <tr>
@@ -212,7 +228,6 @@ class GFShootQ {
 			<div>
 			<div style="clear: all;"></div>
 		</form>
-
 
         <form action="" method="post">
             <?php wp_nonce_field("uninstall", "gf_shootq_uninstall") ?>
@@ -358,16 +373,21 @@ class GFShootQ {
                     </tbody>
                 </table>
             </form>
-			
-			<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-				
-				<table id="shootq-donate" width="100%" border="0" cellspacing="0" cellpadding="12">
-					<tr><td width="100%" align="right"><?php _e("Please support this plugin by making a donation. <i>Thank you!</i> ", "gravityformsshootq"); ?></td>
-					<td><input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!" /></td></tr>
-				</table>
-				<input type="hidden" name="cmd" value="_s-xclick" />
-				<input type="hidden" name="hosted_button_id" value="PD5VXLZ9ZFV24" />
-				<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1" />
+		
+			<style type="text/css" media="all">
+				#shootq-donate-button { float: right; width: 150px; height: 60px; padding:10px; text-align: center; }
+			</style>
+			<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+				<div class="hr-divider"></div>
+				<div id="shootq-donate-button"><input type="hidden" name="cmd" value="_s-xclick">
+				<input type="hidden" name="hosted_button_id" value="YKDX6YSJRWW2L">
+				<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+				<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1"></div>
+				<h3><?php _e("Make a Donation", "gravityformsshootq") ?></h3>
+				<div class="update-fade">
+				<p><?php _e("The Gravity Forms ShootQ add-on was developed for the benefit of the ShootQ commmunity by a fellow photographer. If it has helped your business in any way, <i>please</i> support the maintenance and further development of this plugin by making a donation to the developer. Thank you!", "gravityformsshootq") ?></p>
+				<div>
+				<div style="clear: all;"></div>
 			</form>
 			
         </div>
@@ -785,13 +805,15 @@ class GFShootQ {
 
     private static function get_lead_fields(){
         //the "required" key exists only for fields that are required by the ShootQ API
-		return array(array("name" => "type" , "label" => "Shoot Type", "required" => "true"), 
-		array("name" => "first_name" , "label" => "First Name", "required" => "true"), array("name" => "last_name" , "label" =>"Last Name", "required" => "true"),
-        array("name" => "email" , "label" =>"Email", "required" => "true"), 
-		array("name" => "date" , "label" => "Session Date"),
-		array("name" => "referrer" , "label" => "Referrer"),
-		array("name" => "remarks" , "label" => "Remarks"),
-		array("name" => "phone" , "label" =>"Phone"), array("name" => "phonetype" , "label" => "Phone Type"));
+		return array(
+			array("name" => "type" , "label" => "Shoot Type", "required" => "true"), 
+			array("name" => "first_name" , "label" => "First Name", "required" => "true"), array("name" => "last_name" , "label" =>"Last Name", "required" => "true"),
+			array("name" => "email" , "label" =>"Email", "required" => "true"), 
+			array("name" => "date" , "label" => "Session Date"),
+			array("name" => "referrer" , "label" => "Referrer"),
+			array("name" => "remarks" , "label" => "Remarks"),
+			array("name" => "phone" , "label" =>"Phone"), array("name" => "phonetype" , "label" => "Phone Type")
+		);
     }
 	
     private static function get_mapped_field_list($variable_name, $selected_field, $fields){
