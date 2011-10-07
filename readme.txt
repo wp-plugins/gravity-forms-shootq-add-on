@@ -1,10 +1,10 @@
 === Gravity Forms ShootQ add-on ===
 Contributors: pussycatdev
 Donate link: http://www.pussycatintimates.com/gravity-forms-shootq-add-on/donate/
-Tags: Gravity Forms, ShootQ, photographers, studio management system, leads, integration
+Tags: Gravity Forms, ShootQ, photographers, studio management system, leads, integration, add-on
 Requires at least: 3.1
 Tested up to: 3.2
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 
 Connects your Gravity Forms to your ShootQ account for collecting leads.
 
@@ -34,6 +34,8 @@ Visit my [Usage & Installation Instructions](http://www.pussycatintimates.com/gr
 2. Your visitor submits the form and *voila!* Everything gets sent to ShootQ!
 
 == Changelog ==
+= 1.0.4 =
+* Compartmentalized initialization functions to prevent scripts from loading when they aren't needed. Thanks to Jared at ProPhoto Blogs Support for the tip! :D
 = 1.0.3 =
 * Added validation to ShootQ API Key to help troubleshoot errors. This *does not verify that your API Key is correct,* only that it is in the proper format.
 * Added code to trim spaces from API Key and Brand Abbreviation to help prevent errors created when cutting-and-pasting.
@@ -45,6 +47,8 @@ Visit my [Usage & Installation Instructions](http://www.pussycatintimates.com/gr
 * Initial release!
 
 == Upgrade Notice ==
+= 1.0.4 =
+* You may see an increase in page load speed, at least in the admin if not site wide.
 = 1.0.2 =
 * Upgrade to allow proper uninstall (not that you'll want to!)
 = 1.0 =

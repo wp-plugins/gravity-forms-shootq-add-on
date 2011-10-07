@@ -3,7 +3,7 @@
 Plugin Name: Gravity Forms ShootQ Add-On
 Plugin URI: http://www.pussycatintimates.com/gravity-forms-shootq-add-on-wordpress-plugin/
 Description: Connects your Gravity Forms to your ShootQ account for collecting leads.
-Version: 1.0.3
+Version: 1.0.4
 Author: pussycatdev
 Author URI: http://www.pussycatintimates.com/
 
@@ -30,7 +30,7 @@ register_activation_hook( __FILE__, array("GFShootQ", "add_permissions"));
 
 class GFShootQ {
 
-    private static $version = "1.0.3";
+    private static $version = "1.0.4";
     private static $min_gravityforms_version = "1.5";
 
     //Plugin starting point. Will load appropriate files
@@ -61,8 +61,10 @@ class GFShootQ {
 		add_filter('plugin_action_links', array('GFShootQ', 'plugin_settings_link'), 10, 2);
 
         //loading Gravity Forms tooltips
-        require_once(GFCommon::get_base_path() . "/tooltips.php");
-        add_filter('gform_tooltips', array('GFShootQ', 'tooltips'));
+		if (self::is_gravity_page()) {
+			require_once(GFCommon::get_base_path() . "/tooltips.php");
+			add_filter('gform_tooltips', array('GFShootQ', 'tooltips'));
+		}
 
         if(self::is_shootq_page()){
 
@@ -873,6 +875,17 @@ class GFShootQ {
         else
             return false;
     }
+	
+	/*
+	  Returns whether or not we are on a Gravity Forms admin page.
+	  Suggested fix for Javascript bloat by Jared at ProPhoto Blogs Support.
+	  Thanks, Jared!
+	*/
+	protected static function is_gravity_page() {
+        $current_page = trim( strtolower( RGForms::get( "page" ) ) );
+        $gf_pages = array( "gf_edit_forms", "gf_new_form", "gf_entries", "gf_settings", "gf_export", "gf_help" );
+        return in_array( $current_page, $gf_pages );
+	}
 
     //Returns the url of the plugin's root folder
     protected function get_base_url(){
