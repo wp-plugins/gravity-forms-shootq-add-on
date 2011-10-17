@@ -3,7 +3,7 @@
 Plugin Name: Gravity Forms ShootQ Add-On
 Plugin URI: http://www.pussycatintimates.com/gravity-forms-shootq-add-on-wordpress-plugin/
 Description: Connects your Gravity Forms to your ShootQ account for collecting leads.
-Version: 1.0.4
+Version: 1.0.5
 Author: pussycatdev
 Author URI: http://www.pussycatintimates.com/
 
@@ -30,7 +30,7 @@ register_activation_hook( __FILE__, array("GFShootQ", "add_permissions"));
 
 class GFShootQ {
 
-    private static $version = "1.0.4";
+    private static $version = "1.0.5";
     private static $min_gravityforms_version = "1.5";
 
     //Plugin starting point. Will load appropriate files
@@ -104,7 +104,7 @@ class GFShootQ {
     }
 
 
-    //Returns true if the current page is an Feed pages. Returns false if not
+    //Returns true if the current page is a feed page. Returns false if not.
     private static function is_shootq_page(){
         $current_page = trim(strtolower(rgget("page")));
         $shootq_pages = array("gf_shootq");
@@ -883,7 +883,7 @@ class GFShootQ {
 	*/
 	protected static function is_gravity_page() {
         $current_page = trim( strtolower( RGForms::get( "page" ) ) );
-        $gf_pages = array( "gf_edit_forms", "gf_new_form", "gf_entries", "gf_settings", "gf_export", "gf_help" );
+        $gf_pages = array( "gf_edit_forms", "gf_new_form", "gf_entries", "gf_settings", "gf_export", "gf_help", "gf_shootq" );
         return in_array( $current_page, $gf_pages );
 	}
 
