@@ -3,7 +3,7 @@
 Plugin Name: Gravity Forms ShootQ Add-On
 Plugin URI: http://www.pussycatintimates.com/gravity-forms-shootq-add-on-wordpress-plugin/
 Description: Connects your Gravity Forms to your ShootQ account for collecting leads.
-Version: 1.0.5
+Version: 1.1.0
 Author: pussycatdev
 Author URI: http://www.pussycatintimates.com/
 
@@ -30,7 +30,7 @@ register_activation_hook( __FILE__, array("GFShootQ", "add_permissions"));
 
 class GFShootQ {
 
-    private static $version = "1.0.5";
+    private static $version = "1.1.0";
     private static $min_gravityforms_version = "1.5";
 
     //Plugin starting point. Will load appropriate files
@@ -125,8 +125,8 @@ class GFShootQ {
     public static function tooltips($tooltips){
         $shootq_tooltips = array(
             "shootq_gravity_form" => "<h6>" . __("Gravity Form", "gravityformsshootq") . "</h6>" . __("Select the Gravity Form you would like to integrate with ShootQ.", "gravityformsshootq"),
-            "shootq_api" => "<h6>" . __("ShootQ API Key", "gravityformsshootq") . "</h6>" . __("Enter the ShootQ API Key associated with your account.", "gravityformsshootq"),
-            "shootq_brand" => "<h6>" . __("ShootQ Brand Abbreviation", "gravityformsshootq") . "</h6>" . __("Enter the ShootQ Brand Abbreviation you wish to connect to.", "gravityformsshootq"),
+            "shootq_api" => "<h6>" . __("ShootQ API Key", "gravityformsshootq") . "</h6>" . __("Enter the API Access Key associated with your ShootQ account.", "gravityformsshootq"),
+            "shootq_brand" => "<h6>" . __("ShootQ Brand Abbreviation", "gravityformsshootq") . "</h6>" . __("Enter the ShootQ Brand Abbreviation for the brand you wish to connect.", "gravityformsshootq"),
             "shootq_mapping" => "<h6>" . __("Field Mapping", "gravityformsshootq") . "</h6>" . __("Map your Form Fields to the available ShootQ contact fields. Fields in red are required by ShootQ.", "gravityformsshootq")
 
         );
@@ -154,7 +154,7 @@ class GFShootQ {
             self::uninstall();
 
             ?>
-            <div class="updated fade" style="padding:20px;"><?php _e(sprintf("Gravity Forms ShootQ Add-On have been successfully uninstalled. It can be re-activated from the %splugins page%s.", "<a href='plugins.php'>","</a>"), "gravityformsshootq")?></div>
+            <div class="updated fade" style="padding:20px;"><?php _e(sprintf("Gravity Forms ShootQ Add-On has been successfully uninstalled. It can be re-activated from the %splugins page%s.", "<a href='plugins.php'>","</a>"), "gravityformsshootq")?></div>
             <?php
             return;
         } else if(!rgempty("gf_shootq_submit")){
@@ -214,7 +214,6 @@ class GFShootQ {
             </table>
         </form>
 		
-		
 		<style type="text/css" media="all">
 			#shootq-donate-button { float: right; width: 150px; height: 60px; padding:10px; text-align: center; }
 		</style>
@@ -228,8 +227,8 @@ class GFShootQ {
 			<div class="update-fade">
 			<p><?php _e("The Gravity Forms ShootQ add-on was developed for the benefit of the ShootQ commmunity by a fellow photographer. If it has helped your business in any way, <i>please</i> support the maintenance and further development of this plugin by making a donation to the developer. Thank you!", "gravityformsshootq") ?></p>
 			<div>
-			<div style="clear: all;"></div>
 		</form>
+		<div style="clear: all;"></div>
 
         <form action="" method="post">
             <?php wp_nonce_field("uninstall", "gf_shootq_uninstall") ?>
@@ -238,12 +237,16 @@ class GFShootQ {
                 <div class="hr-divider"></div>
 				
                 <h3><?php _e("Uninstall ShootQ Add-On", "gravityformsshootq") ?></h3>
-                <div class="delete-alert alert_red"><h3><?php _e("Warning", "gravityformsshootq") ?></h3><p><?php _e("This operation deletes ALL ShootQ Feeds, disconnecting your Gravity Forms from your ShootQ account.", "gravityformsshootq") ?></p>
-                    <input type="submit" name="uninstall" value="<?php _e("Uninstall ShootQ Add-On", "gravityformsshootq") ?>" class="button" onclick="return confirm('<?php _e("Warning! ALL ShootQ Feeds will be deleted. This cannot be undone. \'OK\' to delete, \'Cancel\' to stop", "gravityformsshootq") ?>'); "/>
+                <div class="delete-alert"><?php _e("Warning! This operation deletes ALL ShootQ Feeds, disconnecting your Gravity Forms from your ShootQ account.", "gravityformsshootq") ?>
+                    <?php
+                    $uninstall_button = '<input type="submit" name="uninstall" value="' . __("Uninstall ShootQ Add-On", "gravityformsshootq") . '" class="button" onclick="return confirm(\'' . __("Warning! ALL ShootQ Feeds will be deleted. This cannot be undone. \'OK\' to delete, \'Cancel\' to stop", "gravityformsshootq") . '\');"/>';
+                    echo apply_filters("gform_shootq_uninstall_button", $uninstall_button);
+                    ?>
                 </div>
             <?php
             } ?>
         </form>
+		<div style="clear: all;"></div>
         <?php
     }
 
@@ -386,11 +389,11 @@ class GFShootQ {
 				<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
 				<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1"></div>
 				<h3><?php _e("Make a Donation", "gravityformsshootq") ?></h3>
-				<div class="update-fade">
+				<div id="donation-div">
 				<p><?php _e("The Gravity Forms ShootQ add-on was developed for the benefit of the ShootQ commmunity by a fellow photographer. If it has helped your business in any way, <i>please</i> support the maintenance and further development of this plugin by making a donation to the developer. Thank you!", "gravityformsshootq") ?></p>
 				<div>
-				<div style="clear: all;"></div>
 			</form>
+			<div style="clear: all;"></div>
 			
         </div>
         <script type="text/javascript">
@@ -428,7 +431,7 @@ class GFShootQ {
         <style>
             #shootq_submit_container{clear:both;}
             #shootq_field_group div{float:left;}
-            .shootq_col_heading{padding-bottom:2px; font-weight:bold; width:120px;}
+            .shootq_col_heading{padding-bottom:2px; font-weight:bold; width:150px;}
             .shootq_field_cell {padding: 6px 17px 0 0; margin-right:15px;}
 			.shootq_required_field {color: #c00;}
             .left_header{float:left; width:200px;}
@@ -502,7 +505,7 @@ class GFShootQ {
 				<div id="shootq_field_group" valign="top" <?php echo empty($config["form_id"]) ? "style='display:none;'" : "" ?>>
 					
 					<div id="shootq_mapping_notice">
-						<p><?php _e("For each ShootQ Field below, select or &quot;map&quot; the corresponding Form Field from the list of fields. You <b>must</b> map the ShootQ Fields in red, but the remaining Fields are optional. Any Form Fields that are not mapped will also be sent to ShootQ and will appear below the Remarks in the Shoot Summary.", "gravityformsshootq");?></p>
+						<p><?php _e("For each ShootQ Field below, select or &quot;map&quot; the corresponding Form Field from the list of fields. You <b>must</b> map the ShootQ Fields in red, but the remaining Fields are optional. Any Form Fields that are not mapped will also be sent to ShootQ and will appear below the Remarks in the Additional Information section.", "gravityformsshootq");?></p>
 					</div>
 					<div style="clear: all;"></div>
 					
@@ -515,7 +518,6 @@ class GFShootQ {
 							?>
 						</div>
 					</div>
-
                 </div>
 
                     <div id="shootq_submit_container" class="margin_vertical_30" style="clear:both;">
@@ -627,7 +629,7 @@ class GFShootQ {
                     foreach($field["inputs"] as $input)
                         $fields[] =  array($input["id"], GFCommon::get_label($field, $input["id"]));
                 }
-                else if(!rgar($field, 'displayOnly')){
+                else if(!rgar($field, "displayOnly")){
                     $fields[] =  array($field["id"], GFCommon::get_label($field));
                 }
             }
@@ -640,8 +642,14 @@ class GFShootQ {
 		//loading data class
 		require_once(self::get_base_path() . "/data.php");
 		$feed = GFShootQData::get_feed_by_form($form["id"], true);
-		if (isset($feed[0]))
+		if (isset($feed) && isset($feed[0])) {		
+			$form = RGFormsModel::get_form_meta($entry["form_id"]);
+			// TESTING ONLY
+			//echo "<b>FORM:</b><br /><pre>"; print_r($form); echo "</pre>";
+			//echo "<b>FEED:</b><br /><pre>"; print_r($feed); echo "</pre>";
+			//echo "<b>ENTRY:</b><br /><pre>"; print_r($entry); echo "</pre>";
 			self::send_to_shootq($entry, $form, $feed);
+		}
     }
 	
     public static function send_to_shootq($entry, $form, $feed){
@@ -665,22 +673,25 @@ class GFShootQ {
 		$lead["contact"]["emails"][0] = array();
 		$lead["contact"]["emails"][0]["type"] = "Main";
 		$lead["contact"]["emails"][0]["email"] = self::get_entry_data("email", $entry, $map, $admin_email);
-		//$lead["contact"]["role"] = "Groom";
+		$lead["contact"]["role"] = self::get_entry_data("role", $entry, $map);
+		
 		$lead["event"] = array();
 		$lead["event"]["type"] = self::get_entry_data("type", $entry, $map, "Other");
 		$lead["event"]["date"] = self::get_entry_data("date", $entry, $map);
 		$lead["event"]["referred_by"] = self::get_entry_data("referrer", $entry, $map);
 		$lead["event"]["remarks"] = self::get_entry_data("remarks", $entry, $map);
-		//$lead["event"]["wedding"] = array();
-		//$lead["event"]["wedding"]["ceremony_location"] = "First Church of ShootQ";
-		//$lead["event"]["wedding"]["ceremony_start_time"] = "17:30";
-		//$lead["event"]["wedding"]["ceremony_end_time"]= "18:30";
-		//$lead["event"]["wedding"]["reception_location"] = "ShootQ Party Central";
-		//$lead["event"]["wedding"]["reception_start_time"] = "19:00";
-		//$lead["event"]["wedding"]["reception_end_time"]= "22:00";
-		//$lead["event"]["wedding"]["groomsmen_count"] = 5;
-		//$lead["event"]["wedding"]["bridesmaids_count"] = 5;
-		//$lead["event"]["wedding"]["guests_count"] = 200;
+		
+		$lead["event"]["wedding"] = array();
+		$lead["event"]["wedding"]["ceremony_location"] = self::get_entry_data("ceremony_location", $entry, $map);
+		$lead["event"]["wedding"]["ceremony_start_time"] = self::get_entry_data("ceremony_start_time", $entry, $map);
+		$lead["event"]["wedding"]["ceremony_end_time"]= self::get_entry_data("ceremony_end_time", $entry, $map);
+		$lead["event"]["wedding"]["reception_location"] = self::get_entry_data("reception_location", $entry, $map);
+		$lead["event"]["wedding"]["reception_start_time"] = self::get_entry_data("reception_start_time", $entry, $map);
+		$lead["event"]["wedding"]["reception_end_time"]= self::get_entry_data("reception_end_time", $entry, $map);
+		$lead["event"]["wedding"]["groomsmen_count"] = self::get_entry_data("groomsmen_count", $entry, $map);
+		$lead["event"]["wedding"]["bridesmaids_count"] = self::get_entry_data("bridesmaids_count", $entry, $map);
+		$lead["event"]["wedding"]["guests_count"] = self::get_entry_data("guests_count", $entry, $map);
+		
 		$lead["event"]["extra"] = self::get_extras($entry, $map);
 		
 		/* encode this data structure as JSON */
@@ -730,59 +741,63 @@ class GFShootQ {
 	
 	//collects all of the form fields not mapped to the ShootQ fields
 	public static function get_extras($entry, $map) {
-		
 		$form = RGFormsModel::get_form_meta($entry["form_id"]);
 		$fields = $form["fields"];
-		$map_ids = implode(",", $map); //get a list of the mapped fields
+		$useless = "html,section,captcha,page"; //form "fields" that don't gather useful info
+		$extras = array(); //array to be returned
 		
-		//create the array to be sent back
-		$extras = array();
-		
-		//get a list of labels with the field IDs as array keys for easy matching later
-		$count = count($fields);
-		$labels = array();
-		for ($index = 0; $index < $count; $index++) {
-			$labels[$fields[$index]["id"]] = $fields[$index]["label"];
-		}
-		
-		//find the IDs for entries that were not mapped
-		$entries = $entry; //make a copy
-		
-		//remove all of the unnecessary form entries
-		$bad_entries = array("id", "form_id", "date_created", "is_starred", "is_read", "ip", "source_url", "post_id", "currency", "payment_status", "payment_date", "transaction_id", "payment_amount", "is_fulfilled", "created_by", "transaction_type", "user_agent");
-		for ($index = 0; $index < count($bad_entries); $index++) {
-			$entries[$bad_entries[$index]] = "";
-		}
-		
-		//remove the already mapped entries, too
-		$mapped_entries = array_flip(array_flip(explode(",", $map_ids)));
-		for ($index = 0; $index < count($mapped_entries); $index++) {
-			$entries[$mapped_entries[$index]] = "";
-		}
-		
-		$extra_keys = array_flip($entries);
-		$extra_keys = explode(",", implode(",", $extra_keys));
-		
-		for ($index = 0; $index < count($extra_keys); $index++) {
-			$field_id = trim($extra_keys[$index]);
-			
-			//if we get the occasional empty key, skip it
-			if (strlen($field_id) == 0) continue;
-			
-			if (preg_match("/[0-9]+\.[0-9]+/i", $field_id) > 0) {
+		for ($id = 0; $id < count($fields); $id++) {
+			$tmpField = $fields[$id];
+			//if it's not a mapped or useless field, collect the info...
+			if (array_search($tmpField["id"], $map) === false && 
+					strpos($useless, $tmpField["type"]) === false) {
+				$tmpLabel = (isset($tmpField["adminLabel"]) && strlen($tmpField["adminLabel"]) > 0) ? $tmpField["adminLabel"] : $tmpField["label"];
+				//$tmpLabel = $id . " " . $tmpLabel; //show ShootQ Support the IDs for sorting. Remove when done.
 				
-				//field is a fragment so collect them all
-				$tmp_id = intval($field_id); //to match up with the labels array
-				if (!isset($extras[$labels[$tmp_id]])) {
-					$extras[$labels[$tmp_id]] = $entry[$field_id];
+				$tmpValue = "";
+				if ($tmpField["type"] == "checkbox") {
+					$fieldInputs = $tmpField["inputs"];
+					$choices = array();
+					for ($cb = 0; $cb < count($fieldInputs); $cb++) {
+						$tmpID = (string) $fieldInputs[$cb]["id"];
+						if (strlen($entry[$tmpID]) > 0) {
+							$choices[] = trim($entry[$tmpID]);
+						}
+					}
+					$tmpValue = implode(", ", $choices);
+					
+				} elseif ($tmpField["type"] == "list") {
+					$tmpValue = unserialize(trim($entry[$tmpField["id"]]));
+					if (is_array($tmpValue[0])) {
+						$columns = array();
+						$valArray = $tmpValue;
+						while(list($key, $val) = each($valArray[0])) {
+							$columns[] = $key;
+						}
+						
+						for ($col = 0; $col < count($valArray[0]); $col++) {
+							$rowVals = array();
+							for ($row = 0; $row < count($valArray); $row++) {
+								$rowVals[] = $valArray[$row][$columns[$col]];
+							}
+							$tmpValues[] = $columns[$col] . " = " . implode(", ", $rowVals);
+							unset($rowVals);
+						}
+						$tmpValue = implode("; ", $tmpValues);
+					} else {
+						$tmpValue = @implode(", ", $tmpValue); //don't raise error if empty
+					}
 				} else {
-					$extras[$labels[$tmp_id]] = $extras[$labels[$tmp_id]] . ", " . $entry[$field_id];
+					$tmpValue = trim($entry[$tmpField["id"]]);
 				}
-			} else {
-				$extras[$labels[$field_id]] = $entry[$field_id];
+			
+				//eliminate blank values
+				if (strlen($tmpValue) > 0) {
+					$extras[$tmpLabel] = $tmpValue;
+				}
 			}
 		}
-				
+		
 		return $extras;
 	}
 	
@@ -808,13 +823,25 @@ class GFShootQ {
     private static function get_lead_fields(){
         //the "required" key exists only for fields that are required by the ShootQ API
 		return array(
-			array("name" => "type" , "label" => "Shoot Type", "required" => "true"), 
-			array("name" => "first_name" , "label" => "First Name", "required" => "true"), array("name" => "last_name" , "label" =>"Last Name", "required" => "true"),
-			array("name" => "email" , "label" =>"Email", "required" => "true"), 
-			array("name" => "date" , "label" => "Session Date"),
-			array("name" => "referrer" , "label" => "Referrer"),
-			array("name" => "remarks" , "label" => "Remarks"),
-			array("name" => "phone" , "label" =>"Phone"), array("name" => "phonetype" , "label" => "Phone Type")
+			array("name" => "type", "label" => "Shoot Type", "required" => "true"), 
+			array("name" => "first_name", "label" => "First Name", "required" => "true"), 
+			array("name" => "last_name", "label" =>"Last Name", "required" => "true"),
+			array("name" => "email", "label" =>"Email", "required" => "true"), 
+			array("name" => "date", "label" => "Session Date"),
+			array("name" => "referrer", "label" => "Referrer"),
+			array("name" => "remarks", "label" => "Remarks"),
+			array("name" => "phone", "label" =>"Phone"), 
+			array("name" => "phonetype", "label" => "Phone Type"),
+			array("name" => "role", "label" => "Role"),
+			array("name" => "bridesmaids_count", "label" =>"Bridesmaids Count"), 
+			array("name" => "groomsmen_count", "label" =>"Groomsmen Count"), 
+			array("name" => "guests_count", "label" =>"Guests Count"),
+			array("name" => "ceremony_location", "label" =>"Ceremony Location"), 
+			array("name" => "ceremony_start_time", "label" =>"Ceremony Start Time"), 
+			array("name" => "ceremony_end_time", "label" =>"Ceremony End Time"), 
+			array("name" => "reception_location", "label" =>"Reception Location"), 
+			array("name" => "reception_start_time", "label" =>"Reception Start Time"), 
+			array("name" => "reception_end_time", "label" =>"Reception End Time")
 		);
     }
 	
@@ -838,7 +865,7 @@ class GFShootQ {
         require_once(self::get_base_path() . "/data.php");
 
         if(!GFShootQ::has_access("gravityforms_shootq_uninstall"))
-            die(__("You don't have adequate permission to uninstall ShootQ Add-On.", "gravityformsshootq"));
+            die(__("You don't have adequate permission to uninstall the ShootQ Add-On.", "gravityformsshootq"));
 
         //droping all tables
         GFShootQData::drop_tables();
