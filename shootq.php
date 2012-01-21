@@ -213,22 +213,8 @@ class GFShootQ {
                 </tr>
             </table>
         </form>
-		
-		<style type="text/css" media="all">
-			#shootq-donate-button { float: right; width: 150px; height: 60px; padding:10px; text-align: center; }
-		</style>
-		<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-			<div class="hr-divider"></div>
-			<div id="shootq-donate-button"><input type="hidden" name="cmd" value="_s-xclick">
-			<input type="hidden" name="hosted_button_id" value="YKDX6YSJRWW2L">
-			<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-			<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1"></div>
-			<h3><?php _e("Make a Donation", "gravityformsshootq") ?></h3>
-			<div class="update-fade">
-			<p><?php _e("The Gravity Forms ShootQ add-on was developed for the benefit of the ShootQ commmunity by a fellow photographer. If it has helped your business in any way, <i>please</i> support the maintenance and further development of this plugin by making a donation to the developer. Thank you!", "gravityformsshootq") ?></p>
-			<div>
-		</form>
-		<div style="clear: all;"></div>
+		<div class="hr-divider"></div>
+		<?php self::support_section(); ?>
 
         <form action="" method="post">
             <?php wp_nonce_field("uninstall", "gf_shootq_uninstall") ?>
@@ -246,7 +232,7 @@ class GFShootQ {
             <?php
             } ?>
         </form>
-		<div style="clear: all;"></div>
+		<div style="clear: both;"></div>
         <?php
     }
 
@@ -378,23 +364,7 @@ class GFShootQ {
                     </tbody>
                 </table>
             </form>
-		
-			<style type="text/css" media="all">
-				#shootq-donate-button { float: right; width: 150px; height: 60px; padding:10px; text-align: center; }
-			</style>
-			<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-				<div class="hr-divider"></div>
-				<div id="shootq-donate-button"><input type="hidden" name="cmd" value="_s-xclick">
-				<input type="hidden" name="hosted_button_id" value="YKDX6YSJRWW2L">
-				<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-				<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1"></div>
-				<h3><?php _e("Make a Donation", "gravityformsshootq") ?></h3>
-				<div id="donation-div">
-				<p><?php _e("The Gravity Forms ShootQ add-on was developed for the benefit of the ShootQ commmunity by a fellow photographer. If it has helped your business in any way, <i>please</i> support the maintenance and further development of this plugin by making a donation to the developer. Thank you!", "gravityformsshootq") ?></p>
-				<div>
-			</form>
-			<div style="clear: all;"></div>
-			
+		<?php self::support_section(); ?>			
         </div>
         <script type="text/javascript">
             function DeleteSetting(id){
@@ -591,6 +561,25 @@ class GFShootQ {
 		}
     }
 
+	public static function support_section() {
+	?>
+		<style>.support-list-icon { margin: 4px 4px 2px  10px; } </style>
+		<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+			<div id="shootq-donate-button" style="float:right; width:150px; height:60px; padding:10px; text-align:center;"><input type="hidden" name="cmd" value="_s-xclick">
+			<input type="hidden" name="hosted_button_id" value="YKDX6YSJRWW2L">
+			<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+			<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1"></div>
+			<h3><?php _e("Help Support This Plugin!", "gravityformsshootq") ?></h3>
+			<div id="donation-div">
+			<p><?php echo __("The Gravity Forms ShootQ Add-On was developed for the benefit of the ShootQ commmunity by a fellow photographer. If this plugin has helped you turn even ", "gravityformsshootq") . "<i>" . __("one single lead", "gravityformsshootq") . "</i>" . __(" into a client, please support the developer by making a small donation. After all, all of his time and effort behind the scenes should not go unrewarded any more than yours, right? Thank you for your generosity!", "gravityformsshootq"); ?></p>
+			<p><?php echo "<b>" . __("Also, if you please...", "gravityformsshootq") . "</b><br /><img class=\"support-list-icon\" src=\"" . self::get_base_url() . "/images/star.png\" width=\"16\" height=\"16\" border=\"0\" align=\"absbottom\"><a href=\"http://wordpress.org/extend/plugins/gravity-forms-shootq-add-on/\" target=\"_blank\">" . __("Rate this plugin 5 STARS on WordPress.org","gravityformsshootq") . "</a>" ?><br />
+			<?php echo "<img class=\"support-list-icon\" src=\"" . self::get_base_url() . "/images/page_white_world.png\" width=\"16\" height=\"16\" border=\"0\" align=\"absbottom\"><a href=\"http://www.pussycatintimates.com/gravity-forms-shootq-add-on-wordpress-plugin/\">" . __("Blog about it & link to the plugin page","gravityformsshootq") . "</a>" ?>
+			</p>
+			<div>
+		</form>
+		<div style="clear: both;"></div>
+	<?php
+	}
     public static function add_permissions(){
         global $wp_roles;
         $wp_roles->add_cap("administrator", "gravityforms_shootq");
@@ -645,8 +634,6 @@ class GFShootQ {
 		if (isset($feed) && isset($feed[0])) {		
 			$form = RGFormsModel::get_form_meta($entry["form_id"]);
 			// TESTING ONLY
-			//echo "<b>FORM:</b><br /><pre>"; print_r($form); echo "</pre>";
-			//echo "<b>FEED:</b><br /><pre>"; print_r($feed); echo "</pre>";
 			//echo "<b>ENTRY:</b><br /><pre>"; print_r($entry); echo "</pre>";
 			self::send_to_shootq($entry, $form, $feed);
 		}
