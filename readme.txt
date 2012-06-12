@@ -4,9 +4,9 @@ Donate link: http://www.pussycatintimates.com/gravity-forms-shootq-add-on/donate
 Tags: Gravity Forms, ShootQ, photographers, studio management system, leads, integration, add-on, data collection
 Requires at least: 3.1
 Tested up to: 3.3
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 
-Connects your Gravity Forms to your ShootQ account for collecting leads.
+Connects your WordPress web site to your ShootQ account for collecting leads using the power of Gravity Forms.
 
 == Description ==
 Photographers, your wait is over! The Gravity Forms ShootQ add-on utilizes the awesome capabilities of [Gravity Forms](http://beauti.us/GForms) to collect **any information you desire** and send it your [ShootQ](http://www.shootq.com) account as a new lead. It's easy to use, very flexible, and only attaches to the form or forms you need to use.
@@ -31,13 +31,15 @@ This plugin has *not* been tested on a multi-site installation, so I can't tell 
 You have mostly likely either not installed [Gravity Forms](http://beauti.us/GForms), have installed Gravity Forms after the ShootQ add-on instead of before, or - which has happened, trust me - you have installed Contact Form 7 instead of Gravity Forms. If you've done it correctly, it will be an item in the Gravity Forms admin menu (Forms -> Settings in the WordPress admin menu, then click the ShootQ link under the heading), or you can find it on the Plugins page in front of the Deactivate and Edit links for the plugin.
 
 = Where can I get more help on getting this thing started? =
-Visit my [Usage & Installation Instructions](http://www.pussycatintimates.com/gravity-forms-shootq-add-on/) page for plenty of assistance on getting everything configured to start collecting leads for ShootQ.
+Visit my [Usage & Installation Instructions](http://www.pussycatintimates.com/gravity-forms-shootq-add-on-wordpress-plugin/) page for plenty of assistance on getting everything configured to start collecting leads for ShootQ.
 
 == Screenshots ==
 1. Create a Gravity Form to use and map the ShootQ fields with those in your form.
 2. Your visitor submits the form and *voila!* Everything gets sent to ShootQ!
 
 == Changelog ==
+= 1.1.1 =
+* Fixed the link to the Usage & Installation Instructions, plus some minor code cleanup. That's all.
 = 1.1.0 =
 * Updated to include available wedding-oriented fields from the ShootQ API, including ceremony and reception locations and times. Please make sure you edit your form mapping to include these new fields after you add them to your form!
 = 1.0.8 = 
@@ -59,6 +61,8 @@ Visit my [Usage & Installation Instructions](http://www.pussycatintimates.com/gr
 * Initial release!
 
 == Upgrade Notice ==
+= 1.1.1 =
+* Fixed the link to the Usage & Installation Instructions, minor UI adjustments and code cleanup.
 = 1.1.0 =
 * Updated to include available wedding-oriented fields from the ShootQ API, including ceremony and reception locations and times.
 = 1.0.5 =

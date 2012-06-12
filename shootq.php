@@ -2,13 +2,13 @@
 /*
 Plugin Name: Gravity Forms ShootQ Add-On
 Plugin URI: http://www.pussycatintimates.com/gravity-forms-shootq-add-on-wordpress-plugin/
-Description: Connects your Gravity Forms to your ShootQ account for collecting leads.
-Version: 1.1.0
+Description: Connects your WordPress web site to your ShootQ account for collecting leads using the power of Gravity Forms.
+Version: 1.1.1
 Author: pussycatdev
 Author URI: http://www.pussycatintimates.com/
 
 ------------------------------------------------------------------------
-Copyright 2011 Pussycat Intimate Portraiture
+Copyright 2012 Pussycat Intimate Portraiture
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -30,7 +30,7 @@ register_activation_hook( __FILE__, array("GFShootQ", "add_permissions"));
 
 class GFShootQ {
 
-    private static $version = "1.1.0";
+    private static $version = "1.1.1";
     private static $min_gravityforms_version = "1.5";
 
     //Plugin starting point. Will load appropriate files
@@ -697,14 +697,6 @@ class GFShootQ {
 		$response = json_decode($response_json);
 		$httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-		/* the HTTP code will be 200 if there is a success */
-		//if ($httpcode == 200) {
-			//echo "SUCCESS!\n";
-		//} else {
-			//echo "There was a problem: ".$httpcode."\n\n";
-			//echo $response_json;
-		//}
-
 		/* close the connection */
 		curl_close($ch);
 
@@ -890,11 +882,7 @@ class GFShootQ {
             return false;
     }
 	
-	/*
-	  Returns whether or not we are on a Gravity Forms admin page.
-	  Suggested fix for Javascript bloat by Jared at ProPhoto Blogs Support.
-	  Thanks, Jared!
-	*/
+	//Returns whether or not we are on a Gravity Forms admin page.
 	protected static function is_gravity_page() {
         $current_page = trim( strtolower( RGForms::get( "page" ) ) );
         $gf_pages = array( "gf_edit_forms", "gf_new_form", "gf_entries", "gf_settings", "gf_export", "gf_help", "gf_shootq" );
@@ -913,12 +901,12 @@ class GFShootQ {
     }
 
 	public static function plugin_settings_link( $links, $file ) {
-	if ( $file != plugin_basename( __FILE__ ))
+		if ( $file != plugin_basename( __FILE__ ))
+			return $links;
+
+		array_unshift($links, '<a href="' . admin_url("admin.php") . '?page=gf_settings&addon=ShootQ">' . __( 'Settings', 'gravityformsshootq' ) . '</a>');
+
 		return $links;
-
-	array_unshift($links, '<a href="' . admin_url("admin.php") . '?page=gf_settings&addon=ShootQ">' . __( 'Settings', 'gravityformsshootq' ) . '</a>');
-
-	return $links;
     }
 
 }
