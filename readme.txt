@@ -1,10 +1,10 @@
 === Gravity Forms ShootQ add-on ===
 Contributors: pussycatdev
-Donate link: http://www.pussycatintimates.com/gravity-forms-shootq-add-on/donate/
+Donate link: http://www.pussycatintimates.com/gravity-forms-shootq-add-on-wordpress-plugin/donate/
 Tags: Gravity Forms, ShootQ, photographers, studio management system, leads, integration, add-on, data collection
 Requires at least: 3.1
 Tested up to: 3.3
-Stable tag: 1.1.1
+Stable tag: 1.1.2
 
 Connects your WordPress web site to your ShootQ account for collecting leads using the power of Gravity Forms.
 
@@ -38,6 +38,9 @@ Visit my [Usage & Installation Instructions](http://www.pussycatintimates.com/gr
 2. Your visitor submits the form and *voila!* Everything gets sent to ShootQ!
 
 == Changelog ==
+= 1.1.2 =
+* Added specific mapping fields for cell, home and work phone types to enable the option of collecting more than one phone number.
+* Fixed the link to the Donate page.
 = 1.1.1 =
 * Fixed the link to the Usage & Installation Instructions, plus some minor code cleanup. That's all.
 = 1.1.0 =
@@ -61,6 +64,8 @@ Visit my [Usage & Installation Instructions](http://www.pussycatintimates.com/gr
 * Initial release!
 
 == Upgrade Notice ==
+= 1.1.2 =
+* You can now collect more than one phone number! There are specific mapping fields for cell phone, work and home phones.
 = 1.1.1 =
 * Fixed the link to the Usage & Installation Instructions, minor UI adjustments and code cleanup.
 = 1.1.0 =

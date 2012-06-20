@@ -3,7 +3,7 @@
 Plugin Name: Gravity Forms ShootQ Add-On
 Plugin URI: http://www.pussycatintimates.com/gravity-forms-shootq-add-on-wordpress-plugin/
 Description: Connects your WordPress web site to your ShootQ account for collecting leads using the power of Gravity Forms.
-Version: 1.1.1
+Version: 1.1.2
 Author: pussycatdev
 Author URI: http://www.pussycatintimates.com/
 
@@ -30,7 +30,7 @@ register_activation_hook( __FILE__, array("GFShootQ", "add_permissions"));
 
 class GFShootQ {
 
-    private static $version = "1.1.1";
+    private static $version = "1.1.2";
     private static $min_gravityforms_version = "1.5";
 
     //Plugin starting point. Will load appropriate files
@@ -652,10 +652,38 @@ class GFShootQ {
 		$lead["contact"] = array();
 		$lead["contact"]["first_name"] = self::get_entry_data("first_name", $entry, $map, "First Name");
 		$lead["contact"]["last_name"] = self::get_entry_data("last_name", $entry, $map, "Last Name");
+		
+		/* determine phone types, using generic only when necessary */
 		$lead["contact"]["phones"] = array();
-		$lead["contact"]["phones"][0] = array();
-		$lead["contact"]["phones"][0]["type"] = self::get_entry_data("phonetype", $entry, $map, "Cell");
-		$lead["contact"]["phones"][0]["number"] = self::get_entry_data("phone", $entry, $map);
+		/* we favor the specific fields over the legacy generic one */
+		if (isset($map["home_phone"]) || isset($map["work_phone"]) || isset($map["cell_phone"])) {
+			$tmpI = 0;
+			if (isset($map["home_phone"])) {
+				$lead["contact"]["phones"][$tmpI] = array();
+				$lead["contact"]["phones"][$tmpI]["number"] = self::get_entry_data("home_phone", $entry, $map);
+				$lead["contact"]["phones"][$tmpI]["type"] = "Home";
+				$tmpI++;
+			}
+			if (isset($map["cell_phone"])) {
+				$lead["contact"]["phones"][$tmpI] = array();
+				$lead["contact"]["phones"][$tmpI]["number"] = self::get_entry_data("cell_phone", $entry, $map);
+				$lead["contact"]["phones"][$tmpI]["type"] = "Cell";
+				$tmpI++;
+			}
+			if (isset($map["work_phone"])) {
+				$lead["contact"]["phones"][$tmpI] = array();
+				$lead["contact"]["phones"][$tmpI]["number"] = self::get_entry_data("work_phone", $entry, $map);
+				$lead["contact"]["phones"][$tmpI]["type"] = "Work";
+				$tmpI++;
+			}
+		} else {
+			$lead["contact"]["phones"][0]["number"] = self::get_entry_data("phone", $entry, $map);
+			$lead["contact"]["phones"][0]["type"] = self::get_entry_data("phonetype", $entry, $map, "Cell");
+		}
+				
+		//$lead["contact"]["phones"][0]["type"] = self::get_entry_data("phonetype", $entry, $map, "Cell");
+		//$lead["contact"]["phones"][0]["number"] = self::get_entry_data("phone", $entry, $map);
+		
 		$lead["contact"]["emails"] = array();
 		$lead["contact"]["emails"][0] = array();
 		$lead["contact"]["emails"][0]["type"] = "Main";
@@ -811,6 +839,9 @@ class GFShootQ {
 			array("name" => "remarks", "label" => "Remarks"),
 			array("name" => "phone", "label" =>"Phone"), 
 			array("name" => "phonetype", "label" => "Phone Type"),
+			array("name" => "home_phone", "label" =>"Home Phone"), 
+			array("name" => "work_phone", "label" =>"Work Phone"), 
+			array("name" => "cell_phone", "label" =>"Cell Phone"), 
 			array("name" => "role", "label" => "Role"),
 			array("name" => "bridesmaids_count", "label" =>"Bridesmaids Count"), 
 			array("name" => "groomsmen_count", "label" =>"Groomsmen Count"), 
