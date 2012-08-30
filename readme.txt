@@ -4,15 +4,15 @@ Donate link: http://www.pussycatintimates.com/gravity-forms-shootq-add-on-wordpr
 Tags: Gravity Forms, ShootQ, photographers, studio management system, leads, integration, add-on, data collection
 Requires at least: 3.1
 Tested up to: 3.3
-Stable tag: 1.1.2
+Stable tag: 1.1.3
 
 Connects your WordPress web site to your ShootQ account for collecting leads using the power of Gravity Forms.
 
 == Description ==
-Photographers, your wait is over! The Gravity Forms ShootQ add-on utilizes the awesome capabilities of [Gravity Forms](http://beauti.us/GForms) to collect **any information you desire** and send it your [ShootQ](http://www.shootq.com) account as a new lead. It's easy to use, very flexible, and only attaches to the form or forms you need to use.
+Photographers, your wait is over! The Gravity Forms ShootQ add-on utilizes the awesome capabilities of Gravity Forms to collect **any information you desire** and send it your [ShootQ](http://www.shootq.com) account as a new lead. It's easy to use, very flexible, and only attaches to the form or forms you need to use.
 
 == Installation ==
-1. First **make sure** you have [Gravity Forms](http://beauti.us/GForms) installed first.
+1. First **make sure** you have Gravity Forms installed first.
 1. Upload the extracted archive to `wp-content/plugins/`
 2. Activate the plugin through the 'Plugins' menu
 3. Open the plugin settings page Forms -> Settings -> ShootQ or the settings link on the Plugins page
@@ -38,6 +38,8 @@ Visit my [Usage & Installation Instructions](http://www.pussycatintimates.com/gr
 2. Your visitor submits the form and *voila!* Everything gets sent to ShootQ!
 
 == Changelog ==
+= 1.1.3 =
+* Removed affiliate links from readme.txt to comply with WordPress.org guidelines.
 = 1.1.2 =
 * Added specific mapping fields for cell, home and work phone types to enable the option of collecting more than one phone number.
 * Fixed the link to the Donate page.
