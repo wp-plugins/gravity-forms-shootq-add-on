@@ -28,7 +28,7 @@ Sorry, but no. This is a one brand pony show. Most people who have multiple Shoo
 This plugin has *not* been tested on a multi-site installation, so I can't tell you. Let me know if you find out!
 
 = I can't find the settings page so I can enter my API Key and Brand Abbreviation. Where is it? =
-You have mostly likely either not installed [Gravity Forms](http://beauti.us/GForms), have installed Gravity Forms after the ShootQ add-on instead of before, or - which has happened, trust me - you have installed Contact Form 7 instead of Gravity Forms. If you've done it correctly, it will be an item in the Gravity Forms admin menu (Forms -> Settings in the WordPress admin menu, then click the ShootQ link under the heading), or you can find it on the Plugins page in front of the Deactivate and Edit links for the plugin.
+You have mostly likely either not installed Gravity Forms, have installed Gravity Forms after the ShootQ add-on instead of before, or - which has happened, trust me - you have installed Contact Form 7 instead of Gravity Forms. If you've done it correctly, it will be an item in the Gravity Forms admin menu (Forms -> Settings in the WordPress admin menu, then click the ShootQ link under the heading), or you can find it on the Plugins page in front of the Deactivate and Edit links for the plugin.
 
 = Where can I get more help on getting this thing started? =
 Visit my [Usage & Installation Instructions](http://www.pussycatintimates.com/gravity-forms-shootq-add-on-wordpress-plugin/) page for plenty of assistance on getting everything configured to start collecting leads for ShootQ.
