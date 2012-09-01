@@ -3,7 +3,7 @@
 Plugin Name: Gravity Forms ShootQ Add-On
 Plugin URI: http://www.pussycatintimates.com/gravity-forms-shootq-add-on-wordpress-plugin/
 Description: Connects your WordPress web site to your ShootQ account for collecting leads using the power of Gravity Forms.
-Version: 1.1.3
+Version: 1.1.4
 Author: pussycatdev
 Author URI: http://www.pussycatintimates.com/
 
@@ -30,7 +30,7 @@ register_activation_hook( __FILE__, array("GFShootQ", "add_permissions"));
 
 class GFShootQ {
 
-    private static $version = "1.1.3";
+    private static $version = "1.1.4";
     private static $min_gravityforms_version = "1.5";
 
     //Plugin starting point. Will load appropriate files
